@@ -1,16 +1,28 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { SignIn } from '../pages/SignIn'
+import { View, ActivityIndicator } from "react-native";
+import { AuthRoutes } from "./auth.routes";
+import { ProtectedRoutes } from "./app.routs";
 
-const Stack = createNativeStackNavigator()
+export function Routes() {
+    const isAuthenticated = false
+    const loading = false
 
-function AuthRoutes() {
+    if (loading) {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    backgroundColor: '#1d1d2e',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <ActivityIndicator size={60} color="#fff" />
+            </View>
+        )
+
+    }
+
     return (
-        <Stack.Navigator>
-            <Stack.Screen name='SignIn' component={SignIn} />
-        </Stack.Navigator>
+        isAuthenticated ? <ProtectedRoutes /> : <AuthRoutes />
     )
+
 }
-
-export { AuthRoutes }
-
-//todas as telas que usuários não logados podem acessar
